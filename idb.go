@@ -60,9 +60,11 @@ func (r *Reader) processIDB(bh *blockHeader) (err error) {
 			break
 		}
 		if code == optionTSResol {
-			if l != 1 {
-				return errors.Errorf("IDB, ts_resol length %d not 1 as expected", l)
-			}
+			// disable length check of ts_resol option as wireshark remote capture
+			// has length equal four bytes
+			//if l != 1 {
+			//	return errors.Errorf("IDB, ts_resol length %d not 1 as expected", l)
+			//}
 			tsResol := optData[0]
 			var base uint64
 			if (tsResol & 0x80) > 0 {
